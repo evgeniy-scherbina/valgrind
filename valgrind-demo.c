@@ -8,6 +8,7 @@ void f(void)
 
 int main(void)
 {
+    printf("valgrind-demo");
     f();
     return 0;
 }
