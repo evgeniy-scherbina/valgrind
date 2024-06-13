@@ -26,13 +26,17 @@ func uuid() string {
 }
 
 func memoryLeak() {
-	for {
-		var uuid *C.uchar
-		uuid = (*C.uchar)(C.malloc(16))
-		_ = uuid
+	var uuid *C.uchar
+	uuid = (*C.uchar)(C.malloc(16))
+	_ = uuid
 
-		time.Sleep(time.Millisecond * 10)
-	}
+	//for {
+	//	var uuid *C.uchar
+	//	uuid = (*C.uchar)(C.malloc(16))
+	//	_ = uuid
+	//
+	//	time.Sleep(time.Millisecond * 10)
+	//}
 }
 
 func func1() {
