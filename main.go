@@ -13,6 +13,7 @@ package main
 // }
 import "C"
 import (
+	"flag"
 	"fmt"
 	"time"
 )
@@ -54,9 +55,13 @@ func func2() {
 }
 
 func main() {
+	uuids := flag.Int("uuids", 1, "")
+
 	// and now it's simple to use
-	myuuid := uuid() // this is a go string now
-	fmt.Println(myuuid)
+	for i := 0; i < *uuids; i++ {
+		myuuid := uuid() // this is a go string now
+		fmt.Println(myuuid)
+	}
 
 	//memoryLeak()
 	//func1()
