@@ -14,10 +14,7 @@ package main
 import "C"
 import (
 	"fmt"
-	"log"
 	"time"
-
-	"github.com/linxGnu/grocksdb"
 )
 
 const pathToDB = "/tmp/rocksdb_data"
@@ -47,50 +44,6 @@ func func2() {
 		var uuid *C.uchar
 		uuid = (*C.uchar)(C.malloc(16))
 		_ = uuid
-
-		time.Sleep(time.Millisecond * 10)
-	}
-}
-
-func rocksdb() {
-	bbto := grocksdb.NewDefaultBlockBasedTableOptions()
-	cache := grocksdb.NewLRUCache(1 << 30)
-	bbto.SetBlockCache(cache)
-	bbto.SetFilterPolicy(grocksdb.NewBloomFilter(10))
-
-	opts := grocksdb.NewDefaultOptions()
-	opts.SetBlockBasedTableFactory(bbto)
-	opts.SetCreateIfMissing(true)
-	opts.EnableStatistics()
-	opts.SetStatsDumpPeriodSec(1)
-	db, err := grocksdb.OpenDb(opts, pathToDB)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	simulateLoad(db)
-}
-
-func simulateLoad(db *grocksdb.DB) {
-	ro := grocksdb.NewDefaultReadOptions()
-	wo := grocksdb.NewDefaultWriteOptions()
-
-	defaultKey := []byte("foo")
-	defaultValue := []byte("bar")
-
-	// if ro and wo are not used again, be sure to Close them.
-	err := db.Put(wo, defaultKey, defaultValue)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	for {
-		value, err := db.Get(ro, defaultKey)
-		if err != nil {
-			log.Fatal(err)
-		}
-		_ = value
-		//defer value.Free()
 
 		time.Sleep(time.Millisecond * 10)
 	}
