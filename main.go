@@ -56,6 +56,7 @@ func func2() {
 
 func main() {
 	uuids := flag.Int("uuids", 1, "")
+	flag.Parse()
 
 	// and now it's simple to use
 	for i := 0; i < *uuids; i++ {

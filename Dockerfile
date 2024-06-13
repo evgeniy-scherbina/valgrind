@@ -1,6 +1,7 @@
 FROM ubuntu:20.04
 
 RUN apt-get update && apt-get install -y wget lsof git build-essential uuid-dev bpfcc-tools # valgrind
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y valgrind nano
 
 RUN wget https://go.dev/dl/go1.22.4.linux-amd64.tar.gz
 
@@ -13,9 +14,7 @@ RUN tar -xvzf go1.22.4.linux-amd64.tar.gz -C /usr/local
 # ln -s /path/to/file /path/to/symlink
 RUN ln -s /usr/local/go/bin/go /usr/local/bin/go
 
-RUN mkdir /tmp/30
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y valgrind nano
+RUN mkdir /tmp/31
 
 # Install valgrind-demo
 RUN git clone https://github.com/evgeniy-scherbina/valgrind
