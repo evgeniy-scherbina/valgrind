@@ -54,7 +54,7 @@ func main() {
 	myuuid := uuid() // this is a go string now
 	fmt.Println(myuuid)
 
-	memoryLeak()
+	//memoryLeak()
 	//func1()
 
 	//rocksdb()
