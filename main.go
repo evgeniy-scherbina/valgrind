@@ -15,6 +15,8 @@ import "C"
 import (
 	"flag"
 	"fmt"
+	"github.com/linxGnu/grocksdb"
+	"log"
 	"time"
 )
 
@@ -52,6 +54,26 @@ func func2() {
 
 		time.Sleep(time.Millisecond * 10)
 	}
+}
+
+func rocksdb() {
+	bbto := grocksdb.NewDefaultBlockBasedTableOptions()
+	cache := grocksdb.NewLRUCache(1 << 30)
+	bbto.SetBlockCache(cache)
+	bbto.SetFilterPolicy(grocksdb.NewBloomFilter(10))
+
+	opts := grocksdb.NewDefaultOptions()
+	opts.SetBlockBasedTableFactory(bbto)
+	opts.SetCreateIfMissing(true)
+	opts.EnableStatistics()
+	opts.SetStatsDumpPeriodSec(1)
+	db, err := grocksdb.OpenDb(opts, pathToDB)
+	if err != nil {
+		log.Fatal(err)
+	}
+	_ = db
+
+	//simulateLoad(db)
 }
 
 func main() {
