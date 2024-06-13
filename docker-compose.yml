@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  valgrind-demo:
+    image: valgrind-demo
+    container_name: valgrind-demo
+    restart: unless-stopped
+    networks:
+      - valgrind-demo
+
+networks:
+  valgrind-demo:
+    driver: bridge
