@@ -9,7 +9,7 @@ void f(void)
 
 int main(void)
 {
-    printf("valgrind-demo");
+    printf("valgrind-demo\n");
     f();
     return 0;
 }
